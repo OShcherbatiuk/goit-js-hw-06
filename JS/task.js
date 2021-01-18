@@ -113,11 +113,25 @@ console.log('Задание 9',getNamesSortedByFriendsCount(users));
 // Получить массив всех умений всех пользователей (поле skills), при этом не должно быть повторяющихся умений и они должны быть отсортированы в алфавитном порядке.
 const getSortedUniqueSkills = users => {
   // твой код
-    const allSkills = users
-        .reduce((acc, user) => { acc.push(...user.skills); return acc }, [])
-        .filter((item, index, arr) => { return arr.indexOf(item) === index; })
-        .sort();
-    
+  
+  // вариант 1 через .reduce
+    // const allSkills = users
+    //     .reduce((acc, user) => { acc.push(...user.skills); return acc }, [])
+    //     .filter((item, index, arr) => { return arr.indexOf(item) === index; })
+    //     .sort();
+  
+  // вариант 2 через .flatMap
+  const allSkills = users
+    .flatMap(user => user.skills)
+    .filter((item, index, arr) => { return arr.indexOf(item) === index; })
+    .sort();
+  
+  // вариант 3 через.lastIndexOf с удалением всех дублирующихся значений полностью
+  // const allSkills = users
+  //   .flatMap(user => user.skills)
+  //   .filter((item, _index, arr) => { return arr.indexOf(item) === arr.lastIndexOf(item); })
+  //   .sort();
+  
     return allSkills;
 };
 
